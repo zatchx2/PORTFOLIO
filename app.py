@@ -1,17 +1,18 @@
-import streamlit as st
-import requests
 import os
+import requests
+import streamlit as st
 
-
-# ================== AI CONFIG (PLACEHOLDER) ==================
-# Put your REAL Groq / Grok API key in this string later.
-# Example: GROQ_API_KEY = "gsk_xxxxxxxxxxxxx"
+# ================== AI CONFIG (SECURE) ==================
+# IMPORTANT:
+# - Do NOT hard-code your real key here.
+# - On Streamlit Cloud, set a secret named GROQ_API_KEY.
+#   In "Edit secrets":
+#   GROQ_API_KEY = "gsk_your_real_key_here"
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", None)
 
-# Groq-style OpenAI compatible endpoint + model
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.1-8b-instant"   # change if your account uses a different model
-# ============================================================
+# ========================================================
 
 
 # --------- PAGE CONFIG ----------
@@ -28,6 +29,7 @@ st.markdown("""
 .main {
     background: radial-gradient(circle at top, #020617 0, #020617 30%, #020617 100%);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #e5e7eb;
 }
 
 /* Hide Streamlit default menu & footer */
@@ -161,20 +163,20 @@ header {visibility: hidden;}
     border: 1px solid rgba(148,163,184,0.4);
 }
 
-/* Main content cards */
+/* Generic sections (dark glass cards) */
 .section {
-    background: rgba(248,250,252,0.97);
+    background: rgba(15,23,42,0.95);
     border-radius: 20px;
     padding: 1.2rem 1.4rem;
     margin-bottom: 1rem;
-    border: 1px solid rgba(148,163,184,0.35);
-    box-shadow: 0 18px 40px rgba(15,23,42,0.35);
+    border: 1px solid rgba(148,163,184,0.4);
+    box-shadow: 0 18px 40px rgba(15,23,42,0.8);
     backdrop-filter: blur(12px);
     animation: revealUp 0.7s ease-out;
-    color: #020617;
+    color: #e5e7eb;
 }
 
-/* Softer sections JUST for home info (no big white blocks) */
+/* Home page inline sections */
 .section-home {
     background: transparent;
     border-radius: 0;
@@ -188,12 +190,28 @@ header {visibility: hidden;}
     color: #e5e7eb;
 }
 
-/* Section title */
+/* Titles */
 .section-title {
-    font-size: 1.15rem;
-    font-weight: 650;
+    font-size: 1.2rem;
+    font-weight: 700;
     margin-bottom: 0.4rem;
-    color: #020617;
+    color: #e5e7eb;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #a5b4fc;
+    margin-bottom: 0.8rem;
+}
+
+/* Skill card */
+.skill-card {
+    background: rgba(15,23,42,0.9);
+    border-radius: 18px;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(148,163,184,0.5);
+    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
+    margin-bottom: 1rem;
 }
 
 /* Skill pill */
@@ -201,11 +219,15 @@ header {visibility: hidden;}
     display: inline-block;
     padding: 0.32rem 0.9rem;
     border-radius: 999px;
-    border: 1px solid rgba(148,163,184,0.9);
+    border: 1px solid rgba(148,163,184,0.7);
     margin: 0.15rem 0.25rem;
     font-size: 0.85rem;
-    background: #f1f5f9;
-    color: #020617;
+    background: rgba(15,23,42,0.9);
+    color: #e5e7eb;
+}
+.skill-pill:hover {
+    background: rgba(37,99,235,0.25);
+    border-color: rgba(129,140,248,0.9);
 }
 
 /* Project card */
@@ -213,23 +235,24 @@ header {visibility: hidden;}
     border-radius: 18px;
     padding: 0.9rem 1rem;
     border: 1px solid rgba(148,163,184,0.6);
-    background: #f8fafc;
+    background: rgba(15,23,42,0.95);
     margin-bottom: 0.7rem;
-    color: #020617;
+    color: #e5e7eb;
+    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
 }
 .project-title {
     font-weight: 650;
     font-size: 1rem;
-    color: #020617;
+    color: #e5e7eb;
 }
 .project-tech {
     font-size: 0.8rem;
-    color: #4b5563;
+    color: #9ca3af;
     margin-bottom: 0.2rem;
 }
 .project-desc {
     font-size: 0.9rem;
-    color: #020617;
+    color: #e5e7eb;
 }
 
 /* Animations */
@@ -271,7 +294,7 @@ header {visibility: hidden;}
 
 /* Links */
 a {
-    color: #0ea5e9;
+    color: #38bdf8;
     text-decoration: none;
 }
 a:hover {
@@ -329,17 +352,20 @@ a:hover {
     align-items: center;
     justify-content: center;
 }
-.side-arrow {
-    opacity: 0.18;
-    transition: all 0.2s ease-out;
+.side-arrow-wrapper .stButton>button {
+    font-size: 1.6rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: radial-gradient(circle at top left, #22c55e, #0ea5e9);
+    border: 1px solid rgba(148,163,184,0.5);
 }
-.side-arrow button {
-    font-size: 1.8rem;
-    padding: 0.1rem 0.4rem;
+.side-arrow-wrapper {
+    opacity: 0.35;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 }
-.side-arrow:hover {
+.side-arrow-wrapper:hover {
     opacity: 1;
-    transform: translateX(3px);
+    transform: translateY(-1px);
 }
 
 /* Remove thick default horizontal rules */
@@ -384,6 +410,10 @@ hr {
     .subtitle {
         max-width: 100%;
     }
+    /* hide side arrows on small screens */
+    .side-arrow-wrapper {
+        display: none;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -393,14 +423,13 @@ hr {
 def call_groq_assistant(message: str) -> str:
     """
     Calls a Groq-compatible chat completion endpoint.
-    You will replace GROQ_API_KEY with your real key.
+    API key is read from environment variable GROQ_API_KEY.
     """
-    # Safety: if key is still placeholder / empty
-    if (not GROQ_API_KEY) or (GROQ_API_KEY == "YOUR_REAL_GROQ_KEY_HERE"):
+    if not GROQ_API_KEY:
         return (
             "✨ The magic circle is drawn, but the core spell (API key) is missing.\n\n"
-            "Edit this file and replace `YOUR_REAL_GROQ_KEY_HERE` with your real Groq API key "
-            "to enable live AI responses."
+            "On Streamlit Cloud, open the menu → *Edit secrets* and set:\n"
+            "`GROQ_API_KEY = \"gsk_your_real_key_here\"`"
         )
 
     try:
@@ -415,7 +444,7 @@ def call_groq_assistant(message: str) -> str:
             "data analysis and building practical tools. "
             "He knows Python, SQL, some JavaScript and Dart/Flutter. "
             "He uses Pandas, NumPy, basic scikit-learn, OpenCV, Streamlit, VS Code and Git/GitHub. "
-            "He studied Diploma in Computer Engineering at Kuttukaran Polytechnic College "
+            "He completed a Diploma in Computer Engineering at Kuttukaran Polytechnic College "
             "and is pursuing BCA from Amity University Online. "
             "He has experience as a Flutter Developer Intern at Zoople Technologies. "
             "He has projects like an AI Data Analyst app, a Stress Detection web app using OpenCV, "
@@ -456,9 +485,8 @@ if "chat_history" not in st.session_state:
 # --------- SIDEBAR (NAVIGATION) ----------
 with st.sidebar:
     st.markdown('<div class="sidebar-title">🧭 Navigation</div>', unsafe_allow_html=True)
-    st.markdown('<div class="nav-note">use this panel or side arrows to switch scenes.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="nav-note">Use this panel or the side arrows to switch scenes.</div>', unsafe_allow_html=True)
 
-    # sync radio with page_index
     current_page_name = PAGES[st.session_state.page_index]
     choice = st.radio("", PAGES, index=PAGES.index(current_page_name), label_visibility="collapsed")
     if choice != current_page_name:
@@ -472,38 +500,42 @@ with st.sidebar:
     st.markdown('<div class="sidebar-title">🌐 Socials</div>', unsafe_allow_html=True)
 
     st.markdown(
-        '<div class="social-pill">💼 <a href="https://www.linkedin.com/in/sanjay-p-s-932224272" target="_blank">LinkedIn</a></div>',
+        '<div class="social-pill">💼 '
+        '<a href="https://www.linkedin.com/in/sanjay-p-s-932224272" target="_blank">LinkedIn</a></div>',
         unsafe_allow_html=True,
     )
     st.markdown(
-        '<div class="social-pill">🐙 <a href="https://github.com/zatchx2" target="_blank">GitHub</a></div>',
+        '<div class="social-pill">🐙 '
+        '<a href="https://github.com/zatchx2" target="_blank">GitHub</a></div>',
         unsafe_allow_html=True,
     )
     st.markdown(
-        '<div class="social-pill">✉️ <a href="mailto:sanjayps.dev@gmail.com">Email</a></div>',
+        '<div class="social-pill">✉️ '
+        '<a href="mailto:sanjayps.dev@gmail.com">Email</a></div>',
         unsafe_allow_html=True,
     )
 
-# compute current page name again after possible change
 current_page_name = PAGES[st.session_state.page_index]
 
 # --------- BIG SIDE ARROWS (TOP OF MAIN PAGE) ----------
 left_arrow_col, center_dummy, right_arrow_col = st.columns([0.07, 0.86, 0.07])
 
 with left_arrow_col:
-    st.markdown('<div class="side-arrow-wrapper"><div class="side-arrow left">', unsafe_allow_html=True)
+    st.markdown('<div class="side-arrow-wrapper">', unsafe_allow_html=True)
     if st.button("⟵", key="prev_page_arrow"):
         st.session_state.page_index = (st.session_state.page_index - 1) % len(PAGES)
         current_page_name = PAGES[st.session_state.page_index]
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 with right_arrow_col:
-    st.markdown('<div class="side-arrow-wrapper"><div class="side-arrow right">', unsafe_allow_html=True)
+    st.markdown('<div class="side-arrow-wrapper">', unsafe_allow_html=True)
     if st.button("⟶", key="next_page_arrow"):
         st.session_state.page_index = (st.session_state.page_index + 1) % len(PAGES)
         current_page_name = PAGES[st.session_state.page_index]
-    st.markdown('</div></div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
+
+# ================== PAGES ==================
 
 # --------- HOME PAGE ----------
 if current_page_name == "Home":
@@ -576,6 +608,7 @@ I like:
     st.markdown('<div class="section-title">🪄 Portfolio AI Assistant</div>', unsafe_allow_html=True)
     st.write(
         "Ask this assistant anything about me, my skills, projects, studies or what I’m looking for. "
+        "Behind the scenes it calls a Groq-style API (once you set `GROQ_API_KEY` in secrets)."
     )
 
     for role, msg in st.session_state.chat_history:
@@ -597,12 +630,12 @@ I like:
 elif current_page_name == "Skills & Background":
     st.markdown('<div class="big-title">Skills & Background</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="subtitle">The toolkit and the journey behind the magic.</div>',
+        '<div class="section-subtitle">The toolkit and the journey behind the magic.</div>',
         unsafe_allow_html=True,
     )
 
-    # Skills
-    st.markdown('<div class="section">', unsafe_allow_html=True)
+    # Programming
+    st.markdown('<div class="skill-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">💻 Programming</div>', unsafe_allow_html=True)
     st.markdown(
         """
@@ -619,7 +652,7 @@ elif current_page_name == "Skills & Background":
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown('<div class="section">', unsafe_allow_html=True)
+        st.markdown('<div class="skill-card">', unsafe_allow_html=True)
         st.markdown('<div class="section-title">🧠 Data, AI & Tools</div>', unsafe_allow_html=True)
         st.markdown(
             """
@@ -637,9 +670,10 @@ elif current_page_name == "Skills & Background":
         st.markdown("</div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown('<div class="section">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">☁️ Cloud & Networking</div>', unsafe_allow_html=True)
-        st.markdown(
+        st.markdown('<div class="skill-card">', unsafe_allow_html=True)
+        st.markmarkdown = st.markdown
+        st.markmarkdown('<div class="section-title">☁️ Cloud & Networking</div>', unsafe_allow_html=True)
+        st.markmarkdown(
             """
 <span class="skill-pill">AWS (learning)</span>
 <span class="skill-pill">Networking basics</span>
@@ -649,8 +683,8 @@ elif current_page_name == "Skills & Background":
         )
         st.markdown("</div>", unsafe_allow_html=True)
 
-    # Education & Experience
-    st.markdown('<div class="section">', unsafe_allow_html=True)
+    # Education
+    st.markdown('<div class="skill-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">🎓 Education</div>', unsafe_allow_html=True)
     st.markdown(
         """
@@ -663,7 +697,8 @@ Amity University Online — *In progress*
     )
     st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown('<div class="section">', unsafe_allow_html=True)
+    # Experience
+    st.markdown('<div class="skill-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">🧪 Experience</div>', unsafe_allow_html=True)
     st.markdown(
         """
@@ -677,7 +712,7 @@ Amity University Online — *In progress*
     st.markdown("</div>", unsafe_allow_html=True)
 
     # Certifications
-    st.markdown('<div class="section">', unsafe_allow_html=True)
+    st.markdown('<div class="skill-card">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">📜 Certifications</div>', unsafe_allow_html=True)
     st.markdown(
         """
@@ -695,7 +730,7 @@ Amity University Online — *In progress*
 elif current_page_name == "Projects":
     st.markdown('<div class="big-title">Things I\'ve built</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="subtitle">Projects that actually do something, not just print "Hello World".</div>',
+        '<div class="section-subtitle">Projects that actually do something, not just print "Hello World".</div>',
         unsafe_allow_html=True,
     )
 
@@ -715,7 +750,7 @@ elif current_page_name == "Projects":
     st.markdown('<div class="project-title">Stress Detection Web App</div>', unsafe_allow_html=True)
     st.markdown('<div class="project-tech">Python · OpenCV · ML</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="project-desc">Real-time facial analysis through webcam to estimate stress levels using basic models and OpenCV pipeline.</div>',
+        '<div class="project-desc">Real-time facial analysis through webcam to estimate stress levels using basic models and an OpenCV pipeline.</div>',
         unsafe_allow_html=True,
     )
     st.markdown("</div>", unsafe_allow_html=True)
@@ -736,7 +771,7 @@ elif current_page_name == "Projects":
 elif current_page_name == "Contact":
     st.markdown('<div class="big-title">Let\'s talk.</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="subtitle">If you\'re building something fun or hiring, I\'m down to chat.</div>',
+        '<div class="section-subtitle">If you\'re building something fun or hiring, I\'m down to chat.</div>',
         unsafe_allow_html=True,
     )
 
