@@ -49,6 +49,9 @@ header {visibility: hidden;}
     border: 1px solid rgba(148,163,184,0.5);
     color: #e5e7eb;
 }
+.section-line{
+    display: none !important;
+}
 
 /* Magic / arcane ambience */
 .magic-orb {
@@ -608,7 +611,7 @@ I like:
     st.markdown('<div class="section-title">🪄 Portfolio AI Assistant</div>', unsafe_allow_html=True)
     st.write(
         "Ask this assistant anything about me, my skills, projects, studies or what I’m looking for. "
-        "Behind the scenes it calls a Groq-style API (once you set `GROQ_API_KEY` in secrets)."
+       
     )
 
     for role, msg in st.session_state.chat_history:
@@ -796,3 +799,4 @@ elif current_page_name == "Contact":
         """
     )
     st.markdown("</div>", unsafe_allow_html=True)
+
