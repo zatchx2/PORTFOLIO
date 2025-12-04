@@ -170,13 +170,24 @@ header {visibility: hidden;}
 .section {
     background: rgba(15,23,42,0.95);
     border-radius: 20px;
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1rem;
+    padding: 0.9rem 1rem;
+    margin: 0.7rem auto;          /* center + smaller vertical space */
     border: 1px solid rgba(148,163,184,0.4);
     box-shadow: 0 18px 40px rgba(15,23,42,0.8);
     backdrop-filter: blur(12px);
     animation: revealUp 0.7s ease-out;
     color: #e5e7eb;
+    max-width: 720px;             /* 🔥 limit width */
+}
+
+.skill-card {
+    background: rgba(15,23,42,0.9);
+    border-radius: 18px;
+    padding: 0.8rem 0.9rem;       /* less padding so it feels tighter */
+    border: 1px solid rgba(148,163,184,0.5);
+    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
+    margin: 0.6rem auto;          /* center */
+    max-width: 520px;             /* 🔥 narrower card */
 }
 
 /* Home page inline sections */
@@ -799,4 +810,5 @@ elif current_page_name == "Contact":
         """
     )
     st.markdown("</div>", unsafe_allow_html=True)
+
 
