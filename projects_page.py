@@ -7,19 +7,19 @@ PROJECTS = [
         "title": "AI Data Analyst",
         "tech": "Python · Pandas · Streamlit",
         "desc": "Upload a CSV and get auto-cleaned tables, summaries and charts instead of manual Excel hell.",
-        "link": "https://github.com/zatchx2/ai-data-analyst"  # change to your real repo
+        
     },
     {
         "title": "Stress Detection Web App",
         "tech": "Python · OpenCV · ML",
         "desc": "Webcam-based basic stress estimation using facial features and a simple model.",
-        "link": "https://github.com/zatchx2/stress-detector"   # change to your real repo
+        
     },
     {
         "title": "Event / E-commerce Helper",
         "tech": "JavaScript · PHP · Basic ML / heuristics",
         "desc": "Helps manage events/products and ranks options based on simple user preference signals.",
-        "link": "https://github.com/zatchx2/event-helper"      # change to your real repo
+ 
     },
 ]
 
