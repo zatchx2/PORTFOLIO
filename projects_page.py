@@ -1,157 +1,186 @@
 # projects_page.py
 import streamlit as st
 
-# ================== STYLES ==================
-PROJECT_CSS = """
+# =============== CSS (ONLY FOR PROJECT PAGE) ===============
+PROJECTS_CSS = """
 <style>
-
-/* Page wrapper animation */
-.page-fade {
-    animation: fadeIn 0.6s ease-out;
+/* Whole project page container */
+.project-page {
+    animation: pageFade 0.6s ease-out;
 }
 
-/* Title styling */
-.big-title {
-    font-size: 2.4rem;
+/* Title styling (reuse portfolio vibe) */
+.project-page-title {
+    font-size: 2.1rem;
     font-weight: 800;
-    margin-bottom: 0.4rem;
     background: linear-gradient(90deg, #0ea5e9, #22c55e, #a855f7);
     -webkit-background-clip: text;
     color: transparent;
-    animation: slideDown 0.6s ease-out;
+    margin-bottom: 0.3rem;
 }
 
-/* Subtitle */
-.section-subtitle {
+.project-page-subtitle {
     font-size: 0.95rem;
     color: #94a3b8;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.4rem;
     opacity: 0.9;
 }
 
-/* Project layout grid */
-.project-wrapper {
+/* List container */
+.project-list {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.9rem;
 }
 
-/* Card */
-.project-card {
-    background: rgba(15, 23, 42, 0.85);
-    border: 1px solid rgba(148,163,184,0.25);
-    border-radius: 18px;
-    padding: 1.1rem 1.3rem;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.55);
-    backdrop-filter: blur(12px);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+/* Each project row (no big bar, just text + thin line) */
+.project-row {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid rgba(148,163,184,0.35);
     position: relative;
     overflow: hidden;
+    animation: rowUp 0.4s ease-out;
 }
 
-/* Glow hover */
-.project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 25px 60px rgba(14, 165, 233, 0.25);
+/* subtle hover motion */
+.project-row:hover {
+    transform: translateY(-1px);
 }
 
-/* Scan line effect */
-.project-card::before {
+/* Left accent line */
+.project-row::before {
     content: "";
     position: absolute;
-    top: -60%;
     left: 0;
-    right: 0;
-    height: 200%;
-    background: linear-gradient(transparent, rgba(56, 189, 248, 0.08), transparent);
-    animation: scan 5s linear infinite;
+    top: 0.55rem;
+    bottom: 0.55rem;
+    width: 2px;
+    background: linear-gradient(#22c55e, #0ea5e9);
+    opacity: 0.0;
+    transform: translateX(-4px);
+    transition: all 0.2s ease-out;
 }
 
-/* Title */
+/* On hover, show accent line */
+.project-row:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Title text */
 .project-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #e2e8f0;
-    margin-bottom: 0.2rem;
+    font-size: 1.05rem;
+    font-weight: 650;
+    color: #e5e7eb;
+    position: relative;
+    display: inline-block;
 }
 
-/* Tech */
+/* Animated underline under title */
+.project-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #22c55e, #0ea5e9);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.18s ease-out;
+}
+
+.project-row:hover .project-title::after {
+    transform: scaleX(1);
+}
+
+/* Tech line */
 .project-tech {
-    font-size: 0.83rem;
-    color: #94a3b8;
-    margin-bottom: 0.45rem;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 0.15rem;
+    margin-bottom: 0.22rem;
 }
 
 /* Description */
 .project-desc {
-    font-size: 0.96rem;
+    font-size: 0.9rem;
     color: #cbd5e1;
+    max-width: 680px;
     line-height: 1.45rem;
 }
 
-/* ---- Animations ---- */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-12px); }
+/* ========== Animations ========== */
+@keyframes pageFade {
+    from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scan {
-    0% { transform: translateY(-80%); opacity: 0; }
-    30% { opacity: 1; }
-    60% { transform: translateY(80%); opacity: 0; }
-    100% { opacity: 0; }
+@keyframes rowUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .project-page-title {
+        font-size: 1.7rem;
+    }
+    .project-desc {
+        font-size: 0.88rem;
+    }
+}
 </style>
 """
 
-# ================== PROJECT DATA ==================
+# =============== DATA ===============
 PROJECTS = [
     {
         "title": "AI Data Analyst",
         "tech": "Python · Pandas · Streamlit",
-        "desc": "Upload CSV → get auto-cleaned summaries, charts, insights. Unblocks fast analysis without Excel headaches.",
+        "desc": "Upload a CSV and get auto-cleaned tables, summaries and charts instead of manual Excel hell.",
     },
     {
         "title": "Stress Detection Web App",
         "tech": "Python · OpenCV · ML",
-        "desc": "Real-time facial stress estimation with webcam. Uses lightweight models and heuristic analysis.",
+        "desc": "Real-time webcam-based basic stress estimation using facial features and a lightweight model.",
     },
     {
         "title": "Event / E-commerce Helper",
-        "tech": "JavaScript · PHP · Simple ML",
-        "desc": "Ranks products or events based on user preference signals using heuristic scoring instead of complex ML.",
+        "tech": "JavaScript · PHP · Simple ML / heuristics",
+        "desc": "Helps manage products/events and ranks options based on simple user preference logic.",
     },
 ]
 
-# ================== PAGE RENDER ==================
+# =============== RENDER FUNCTION ===============
 def render_projects_page():
-    st.markdown(PROJECT_CSS, unsafe_allow_html=True)
+    # inject CSS
+    st.markdown(PROJECTS_CSS, unsafe_allow_html=True)
 
-    st.markdown('<div class="page-fade">', unsafe_allow_html=True)
+    # page container
+    st.markdown('<div class="project-page">', unsafe_allow_html=True)
 
+    # title + subtitle
+    st.markdown('<div class="project-page-title">Things I\'ve built</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="big-title">Things I\'ve built</div>',
+        '<div class="project-page-subtitle">'
+        'A few projects where I stopped overthinking and just shipped something useful.'
+        '</div>',
         unsafe_allow_html=True,
     )
-    st.markdown(
-        '<div class="section-subtitle">Small tools, built fast — made to solve real problems.</div>',
-        unsafe_allow_html=True,
-    )
 
-    st.markdown('<div class="project-wrapper">', unsafe_allow_html=True)
+    # list
+    st.markdown('<div class="project-list">', unsafe_allow_html=True)
 
     for p in PROJECTS:
-        st.markdown('<div class="project-card">', unsafe_allow_html=True)
+        st.markdown('<div class="project-row">', unsafe_allow_html=True)
+
         st.markdown(f'<div class="project-title">{p["title"]}</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="project-tech">{p["tech"]}</div>', unsafe_allow_html=True)
         st.markdown(f'<div class="project-desc">{p["desc"]}</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)  # end project-row
+
+    st.markdown('</div>', unsafe_allow_html=True)  # end project-list
+    st.markdown('</div>', unsafe_allow_html=True)  # end project-page
+
