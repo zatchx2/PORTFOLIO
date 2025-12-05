@@ -557,7 +557,7 @@ if current_page_name == "Home":
         st.markdown('<div class="access-text">IDENTITY VERIFIED</div>', unsafe_allow_html=True)
         st.markdown('<div class="access-status">ACCESS GRANTED · PORTFOLIO UNLOCKED</div>', unsafe_allow_html=True)
 
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     with col_hero_right:
         st.markdown('<div class="big-title">Yo, I\'m Sanjay.</div>', unsafe_allow_html=True)
@@ -580,7 +580,7 @@ I like:
 - Making stuff that feels smooth, fast and a little overpowered  
             """
         )
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     col_a, col_b = st.columns(2)
 
@@ -594,7 +594,7 @@ I like:
 - Clean, simple experiences (Streamlit enjoyer)  
             """
         )
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     with col_b:
         st.markdown('<div class="section-home">', unsafe_allow_html=True)
@@ -606,7 +606,7 @@ I like:
 - People who care about product, not just buzzwords  
             """
         )
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     # --- AI ASSISTANT CARD ---
     st.markdown('<div class="section">', unsafe_allow_html=True)
@@ -628,7 +628,7 @@ I like:
         with st.chat_message("assistant"):
             st.write(reply)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
 
 # --------- SKILLS & BACKGROUND PAGE ----------
@@ -652,7 +652,7 @@ elif current_page_name == "Skills & Background":
         """,
         unsafe_allow_html=True,
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     col1, col2 = st.columns(2)
 
@@ -672,7 +672,7 @@ elif current_page_name == "Skills & Background":
             """,
             unsafe_allow_html=True,
         )
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     with col2:
         st.markdown('<div class="skill-card">', unsafe_allow_html=True)
@@ -686,7 +686,7 @@ elif current_page_name == "Skills & Background":
             """,
             unsafe_allow_html=True,
         )
-        st.markdown("</div>", unsafe_allow_html=True)
+        
 
     # Education
     st.markdown('<div class="skill-card">', unsafe_allow_html=True)
@@ -700,7 +700,7 @@ Kuttukaran Polytechnic College — *Completed*
 Amity University Online — *In progress*
         """
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     # Experience
     st.markdown('<div class="skill-card">', unsafe_allow_html=True)
@@ -714,7 +714,7 @@ Amity University Online — *In progress*
 - Debugged issues & collaborated with the dev team  
         """
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     # Certifications
     st.markdown('<div class="skill-card">', unsafe_allow_html=True)
@@ -728,7 +728,7 @@ Amity University Online — *In progress*
 - Intro to AI concepts, use cases and industry relevance.
         """
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
 
 # --------- PROJECTS PAGE ----------
@@ -749,7 +749,7 @@ elif current_page_name == "Projects":
         '<div class="project-desc">Upload raw CSV → app automatically cleans, structures and visualizes data with summary insights. Goal: kill messy manual Excel work.</div>',
         unsafe_allow_html=True,
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     st.markdown('<div class="project-card">', unsafe_allow_html=True)
     st.markdown('<div class="project-title">Stress Detection Web App</div>', unsafe_allow_html=True)
@@ -758,7 +758,7 @@ elif current_page_name == "Projects":
         '<div class="project-desc">Real-time facial analysis through webcam to estimate stress levels using basic models and an OpenCV pipeline.</div>',
         unsafe_allow_html=True,
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     st.markdown('<div class="project-card">', unsafe_allow_html=True)
     st.markdown('<div class="project-title">Event / E-commerce Helper</div>', unsafe_allow_html=True)
@@ -767,9 +767,9 @@ elif current_page_name == "Projects":
         '<div class="project-desc">Platform logic for managing events / products and ranking options based on simple user-like signals.</div>',
         unsafe_allow_html=True,
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
 
 # --------- CONTACT PAGE ----------
@@ -789,7 +789,7 @@ elif current_page_name == "Contact":
 - 🧑‍💻 GitHub: [github.com/zatchx2](https://github.com/zatchx2)  
         """
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
 
     st.markdown('<div class="section">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">🤝 What I can help with</div>', unsafe_allow_html=True)
@@ -800,7 +800,8 @@ elif current_page_name == "Contact":
 - Turning rough ideas into working prototypes  
         """
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    
+
 
 
 
