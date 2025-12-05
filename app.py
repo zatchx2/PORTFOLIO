@@ -1,6 +1,7 @@
 import os
 import requests
 import streamlit as st
+from projects_page import render_projects_page
 
 # ================== AI CONFIG (SECURE) ==================
 # IMPORTANT:
@@ -725,12 +726,10 @@ Amity University Online — *In progress*
 
 
 # --------- PROJECTS PAGE ----------
-elif current_page_name == "Projects":
-    st.markdown('<div class="big-title">Things I\'ve built</div>', unsafe_allow_html=True)
-    st.markdown(
-        '<div class="section-subtitle">Projects that actually do something, not just print "Hello World".</div>',
-        unsafe_allow_html=True,
-    )
+
+    elif current_page_name == "Projects":
+    render_projects_page()
+
 
     st.markdown('<div class="section">', unsafe_allow_html=True)
     st.markdown('<div class="section-title">🧠 AI / Data</div>', unsafe_allow_html=True)
@@ -794,6 +793,7 @@ elif current_page_name == "Contact":
         """
     )
     
+
 
 
 
