@@ -224,30 +224,7 @@ header {visibility: hidden;}
     border-color: rgba(129,140,248,0.9);
 }
 
-/* Project card */
-.project-card {
-    border-radius: 18px;
-    padding: 0.9rem 1rem;
-    border: 1px solid rgba(148,163,184,0.6);
-    background: rgba(15,23,42,0.95);
-    margin-bottom: 0.7rem;
-    color: #e5e7eb;
-    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
-}
-.project-title {
-    font-weight: 650;
-    font-size: 1rem;
-    color: #e5e7eb;
-}
-.project-tech {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    margin-bottom: 0.2rem;
-}
-.project-desc {
-    font-size: 0.9rem;
-    color: #e5e7eb;
-}
+
 
 /* Animations */
 @keyframes revealUp {
@@ -742,3 +719,4 @@ elif current_page_name == "Contact":
 - Turning rough ideas into working prototypes  
         """
     )
+
