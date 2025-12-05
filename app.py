@@ -401,7 +401,7 @@ with right_arrow_col:
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ================== PAGES (SIMPLIFIED - NO BOXES) ==================
+# ================== PAGES (FIXED <br> LINES) ==================
 
 if current_page_name == "Home":
     col_hero_left, col_hero_right = st.columns([1.1, 2])
@@ -418,15 +418,23 @@ if current_page_name == "Home":
         st.markdown('<div class="subtitle">Programmer · AI & automation enjoyer · Turning raw data & ideas into things that actually feel powerful.</div>', unsafe_allow_html=True)
         
         st.markdown('<div class="section-title">👋 About me</div>', unsafe_allow_html=True)
-        st.markdown("I'm a developer who prefers **building real tools** instead of just checking boxes for assignments.<br><br>I like:<br>- Turning **messy data** into clean dashboards<br>- Automating **boring human clicks**<br>- Making stuff that feels smooth, fast and a little overpowered")
+        st.markdown("I'm a developer who prefers **building real tools** instead of just checking boxes for assignments.")
+        st.markdown("I like:")
+        st.markdown("- Turning **messy data** into clean dashboards")
+        st.markdown("- Automating **boring human clicks**")
+        st.markdown("- Making stuff that feels smooth, fast and a little overpowered")
 
     col_a, col_b = st.columns(2)
     with col_a:
         st.markdown('<div class="section-title">🎯 What I\'m into</div>', unsafe_allow_html=True)
-        st.markdown("- AI / ML for useful things, not toy demos<br>- Data analysis & auto-report style tools<br>- Clean, simple experiences (Streamlit enjoyer)")
+        st.markdown("- AI / ML for useful things, not toy demos")
+        st.markdown("- Data analysis & auto-report style tools")
+        st.markdown("- Clean, simple experiences (Streamlit enjoyer)")
     with col_b:
         st.markdown('<div class="section-title">🚀 What I\'m looking for</div>', unsafe_allow_html=True)
-        st.markdown("- Internships / roles where I can ship features fast<br>- Teams working on AI, data or automation<br>- People who care about product, not just buzzwords")
+        st.markdown("- Internships / roles where I can ship features fast")
+        st.markdown("- Teams working on AI, data or automation")
+        st.markdown("- People who care about product, not just buzzwords")
 
     # AI ASSISTANT (KEEPS ITS GLASS BOX)
     st.markdown('<div class="ai-assistant">', unsafe_allow_html=True)
@@ -461,13 +469,25 @@ elif current_page_name == "Skills & Background":
         st.markdown('<span class="skill-pill">AWS (learning)</span><span class="skill-pill">Networking basics</span><span class="skill-pill">HTTP / APIs</span>', unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">🎓 Education</div>', unsafe_allow_html=True)
-    st.markdown("**Diploma in Computer Engineering**<br>Kuttukaran Polytechnic College — *Completed*<br><br>**Bachelor of Computer Applications (BCA)**<br>Amity University Online — *In progress*")
+    st.markdown("**Diploma in Computer Engineering**")
+    st.markdown("Kuttukaran Polytechnic College — *Completed*")
+    st.markdown("")
+    st.markdown("**Bachelor of Computer Applications (BCA)**")
+    st.markdown("Amity University Online — *In progress*")
 
     st.markdown('<div class="section-title">🧪 Experience</div>', unsafe_allow_html=True)
-    st.markdown("**Flutter Developer Intern — Zoople Technologies**<br>- Built and tested mobile app features using Flutter & Dart<br>- Integrated Firebase backend services<br>- Implemented UI components from Figma designs<br>- Debugged issues & collaborated with the dev team")
+    st.markdown("**Flutter Developer Intern — Zoople Technologies**")
+    st.markdown("- Built and tested mobile app features using Flutter & Dart")
+    st.markdown("- Integrated Firebase backend services")
+    st.markdown("- Implemented UI components from Figma designs")
+    st.markdown("- Debugged issues & collaborated with the dev team")
 
     st.markdown('<div class="section-title">📜 Certifications</div>', unsafe_allow_html=True)
-    st.markdown("**AWS Solutions Architect – Associate** *(In progress)*<br>- Learning EC2, S3, IAM, VPC, networking and cost optimization.<br><br>**Basics of AI — Certificate**<br>- Intro to AI concepts, use cases and industry relevance.")
+    st.markdown("**AWS Solutions Architect – Associate** *(In progress)*")
+    st.markdown("- Learning EC2, S3, IAM, VPC, networking and cost optimization.")
+    st.markdown("")
+    st.markdown("**Basics of AI — Certificate**")
+    st.markdown("- Intro to AI concepts, use cases and industry relevance.")
 
 elif current_page_name == "Projects":
     render_projects_page()
@@ -477,7 +497,11 @@ elif current_page_name == "Contact":
     st.markdown('<div style="font-size: 1.3rem; color: #94a3b8; margin: 3rem 0; text-align: center; font-weight: 300;">If you\'re building something fun or hiring, I\'m down to chat.</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="section-title">📬 Contact details</div>', unsafe_allow_html=True)
-    st.markdown("- 📧 Email: **sanjayps.dev@gmail.com**<br>- 💼 LinkedIn: [Sanjay P S](https://www.linkedin.com/in/sanjay-p-s-932224272)<br>- 🧑‍💻 GitHub: [github.com/zatchx2](https://github.com/zatchx2)")
+    st.markdown("- 📧 Email: **sanjayps.dev@gmail.com**")
+    st.markdown("- 💼 LinkedIn: [Sanjay P S](https://www.linkedin.com/in/sanjay-p-s-932224272)")
+    st.markdown("- 🧑‍💻 GitHub: [github.com/zatchx2](https://github.com/zatchx2)")
 
     st.markdown('<div class="section-title">🤝 What I can help with</div>', unsafe_allow_html=True)
-    st.markdown("- Building small AI / automation tools<br>- Cleaning data and generating quick dashboards<br>- Turning rough ideas into working prototypes")
+    st.markdown("- Building small AI / automation tools")
+    st.markdown("- Cleaning data and generating quick dashboards")
+    st.markdown("- Turning rough ideas into working prototypes")
