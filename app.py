@@ -210,14 +210,7 @@ header {visibility: hidden;}
 }
 
 /* Skill card */
-.skill-card {
-    background: rgba(15,23,42,0.9);
-    border-radius: 18px;
-    padding: 1rem 1.2rem;
-    border: 1px solid rgba(148,163,184,0.5);
-    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
-    margin-bottom: 1rem;
-}
+
 
 /* Skill pill */
 .skill-pill {
@@ -801,6 +794,7 @@ elif current_page_name == "Contact":
         """
     )
     
+
 
 
 
