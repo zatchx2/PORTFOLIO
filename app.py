@@ -167,18 +167,8 @@ header {visibility: hidden;}
 }
 
 /* Generic sections (dark glass cards) */
-.section {
-    background: rgba(15,23,42,0.95);
-    border-radius: 20px;
-    padding: 0.6rem 8rem;
-    margin: 0.7rem auto;          /* center + smaller vertical space */
-    border: 1px solid rgba(148,163,184,0.4);
-    box-shadow: 0 18px 40px rgba(15,23,42,0.8);
-    backdrop-filter: blur(12px);
-    animation: revealUp 0.7s ease-out;
-    color: #e5e7eb;
-    max-width: 850px;             /* 🔥 limit width */
-}
+             /* 🔥 limit width */
+
 
 .skill-card {
     background: rgba(15,23,42,0.9);
@@ -810,6 +800,7 @@ elif current_page_name == "Contact":
         """
     )
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
