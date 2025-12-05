@@ -1,74 +1,89 @@
-# projects_page.py
 import streamlit as st
 
-# =============== CSS (ONLY FOR PROJECT PAGE) ===============
+# =============== CSS ===============
 PROJECTS_CSS = """
 <style>
-/* Whole project page container */
-.project-page {
-    animation: pageFade 0.6s ease-out;
+.proj-page {
+    max-width: 950px;
+    margin: 0 auto;
+    padding-top: 0.5rem;
+    animation: projPageFade 0.5s ease-out;
 }
 
-/* Title styling (reuse portfolio vibe) */
-.project-page-title {
+/* Header / Title */
+.proj-kicker {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #9ca3af;
+    margin-bottom: 0.4rem;
+}
+
+.proj-title {
     font-size: 2.1rem;
     font-weight: 800;
+    margin-bottom: 0.2rem;
     background: linear-gradient(90deg, #0ea5e9, #22c55e, #a855f7);
     -webkit-background-clip: text;
     color: transparent;
-    margin-bottom: 0.3rem;
 }
 
-.project-page-subtitle {
+.proj-subtitle {
     font-size: 0.95rem;
     color: #94a3b8;
-    margin-bottom: 1.4rem;
-    opacity: 0.9;
+    margin-bottom: 1.6rem;
+    max-width: 600px;
 }
 
-/* List container */
-.project-list {
+/* Projects list */
+.proj-list {
     display: flex;
     flex-direction: column;
-    gap: 0.9rem;
+    gap: 1rem;
 }
 
-/* Each project row (no big bar, just text + thin line) */
-.project-row {
-    padding: 0.55rem 0;
+/* Each project row – 2-column layout on desktop */
+.proj-row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 1.2rem;
+    padding: 0.9rem 0.2rem;
     border-bottom: 1px solid rgba(148,163,184,0.35);
     position: relative;
     overflow: hidden;
-    animation: rowUp 0.4s ease-out;
+    animation: projRowUp 0.45s ease-out;
 }
 
-/* subtle hover motion */
-.project-row:hover {
-    transform: translateY(-1px);
-}
-
-/* Left accent line */
-.project-row::before {
+/* Accent bar on left */
+.proj-row::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 0.55rem;
-    bottom: 0.55rem;
+    top: 0.9rem;
+    bottom: 0.9rem;
     width: 2px;
+    border-radius: 999px;
     background: linear-gradient(#22c55e, #0ea5e9);
-    opacity: 0.0;
+    opacity: 0;
     transform: translateX(-4px);
-    transition: all 0.2s ease-out;
+    transition: all 0.18s ease-out;
 }
 
-/* On hover, show accent line */
-.project-row:hover::before {
+.proj-row:hover::before {
     opacity: 1;
     transform: translateX(0);
 }
 
-/* Title text */
-.project-title {
+/* Left side (title, meta) */
+.proj-left-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #6b7280;
+    margin-bottom: 0.15rem;
+}
+
+.proj-name {
     font-size: 1.05rem;
     font-weight: 650;
     color: #e5e7eb;
@@ -76,8 +91,8 @@ PROJECTS_CSS = """
     display: inline-block;
 }
 
-/* Animated underline under title */
-.project-title::after {
+/* Animated underline on hover */
+.proj-name::after {
     content: "";
     position: absolute;
     left: 0;
@@ -87,68 +102,95 @@ PROJECTS_CSS = """
     background: linear-gradient(90deg, #22c55e, #0ea5e9);
     transform-origin: left;
     transform: scaleX(0);
-    transition: transform 0.18s ease-out;
+    transition: transform 0.16s ease-out;
 }
-
-.project-row:hover .project-title::after {
+.proj-row:hover .proj-name::after {
     transform: scaleX(1);
 }
 
-/* Tech line */
-.project-tech {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    margin-top: 0.15rem;
-    margin-bottom: 0.22rem;
+/* Chips row */
+.proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
 }
 
-/* Description */
-.project-desc {
+.proj-tag {
+    font-size: 0.7rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.6);
+    color: #cbd5f5;
+    background: rgba(15,23,42,0.9);
+}
+
+/* Right side (stack + description) */
+.proj-tech {
+    font-size: 0.82rem;
+    color: #9ca3af;
+    margin-bottom: 0.25rem;
+}
+
+.proj-desc {
     font-size: 0.9rem;
-    color: #cbd5e1;
-    max-width: 680px;
+    color: #e5e7eb;
     line-height: 1.45rem;
 }
 
 /* ========== Animations ========== */
-@keyframes pageFade {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes rowUp {
+@keyframes projPageFade {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile tweaks */
-@media (max-width: 600px) {
-    .project-page-title {
-        font-size: 1.7rem;
-    }
-    .project-desc {
-        font-size: 0.88rem;
+@keyframes projRowUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive — stack columns on mobile */
+@media (max-width: 720px) {
+    .proj-row {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 0.7rem 0;
     }
 }
 </style>
 """
 
-# =============== DATA ===============
+# =============== YOUR PROJECT DATA ===============
 PROJECTS = [
     {
+        "label": "MAJOR PROJECT",
         "title": "AI Data Analyst",
-        "tech": "Python · Pandas · Streamlit",
-        "desc": "Upload a CSV and get auto-cleaned tables, summaries and charts instead of manual Excel hell.",
+        "tags": ["AI / Automation", "Data Tools"],
+        "tech": "Python · Pandas · NumPy · Streamlit",
+        "desc": (
+            "Upload messy CSV files and get cleaned tables, quick summaries and visualizations. "
+            "Built to kill manual Excel work and make data exploration feel fast and simple."
+        ),
     },
     {
+        "label": "ACADEMIC PROJECT",
         "title": "Stress Detection Web App",
-        "tech": "Python · OpenCV · ML",
-        "desc": "Real-time webcam-based basic stress estimation using facial features and a lightweight model.",
+        "tags": ["Computer Vision", "OpenCV"],
+        "tech": "Python · OpenCV · basic ML · Streamlit",
+        "desc": (
+            "Web app that uses a webcam feed, extracts facial features and estimates stress levels "
+            "using lightweight models. Focused on real-time feedback and simple UX."
+        ),
     },
     {
+        "label": "SIDE PROJECT",
         "title": "Event / E-commerce Helper",
-        "tech": "JavaScript · PHP · Simple ML / heuristics",
-        "desc": "Helps manage products/events and ranks options based on simple user preference logic.",
+        "tags": ["Recommendation Logic", "Web App"],
+        "tech": "JavaScript · PHP · Simple heuristics",
+        "desc": (
+            "Helps compare and rank products/events based on user preferences. "
+            "Uses scoring logic instead of heavy ML so it stays fast and easy to deploy."
+        ),
     },
 ]
 
@@ -157,30 +199,48 @@ def render_projects_page():
     # inject CSS
     st.markdown(PROJECTS_CSS, unsafe_allow_html=True)
 
-    # page container
-    st.markdown('<div class="project-page">', unsafe_allow_html=True)
+    # main wrapper
+    st.markdown('<div class="proj-page">', unsafe_allow_html=True)
 
-    # title + subtitle
-    st.markdown('<div class="project-page-title">Things I\'ve built</div>', unsafe_allow_html=True)
+    # header
+    st.markdown('<div class="proj-kicker">PROJECTS</div>', unsafe_allow_html=True)
+    st.markdown('<div class="proj-title">Things I\'ve built</div>', unsafe_allow_html=True)
     st.markdown(
-        '<div class="project-page-subtitle">'
-        'A few projects where I stopped overthinking and just shipped something useful.'
+        '<div class="proj-subtitle">'
+        'A mix of academic work and side projects where I used Python, AI and automation '
+        'to turn ideas into working tools.'
         '</div>',
         unsafe_allow_html=True,
     )
 
     # list
-    st.markdown('<div class="project-list">', unsafe_allow_html=True)
+    st.markdown('<div class="proj-list">', unsafe_allow_html=True)
 
     for p in PROJECTS:
-        st.markdown('<div class="project-row">', unsafe_allow_html=True)
+        st.markdown('<div class="proj-row">', unsafe_allow_html=True)
 
-        st.markdown(f'<div class="project-title">{p["title"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="project-tech">{p["tech"]}</div>', unsafe_allow_html=True)
-        st.markdown(f'<div class="project-desc">{p["desc"]}</div>', unsafe_allow_html=True)
+        # LEFT SIDE
+        left_html = f"""
+        <div>
+            <div class="proj-left-label">{p['label']}</div>
+            <div class="proj-name">{p['title']}</div>
+            <div class="proj-tags">
+                {''.join(f'<span class="proj-tag">{tag}</span>' for tag in p['tags'])}
+            </div>
+        </div>
+        """
+        st.markdown(left_html, unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)  # end project-row
+        # RIGHT SIDE
+        right_html = f"""
+        <div>
+            <div class="proj-tech">{p['tech']}</div>
+            <div class="proj-desc">{p['desc']}</div>
+        </div>
+        """
+        st.markdown(right_html, unsafe_allow_html=True)
 
-    st.markdown('</div>', unsafe_allow_html=True)  # end project-list
-    st.markdown('</div>', unsafe_allow_html=True)  # end project-page
+        st.markdown('</div>', unsafe_allow_html=True)  # end proj-row
 
+    st.markdown('</div>', unsafe_allow_html=True)  # end proj-list
+    st.markdown('</div>', unsafe_allow_html=True)  # end proj-page
