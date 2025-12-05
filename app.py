@@ -171,14 +171,15 @@ header {visibility: hidden;}
 
 
 .skill-card {
-    background: rgba(15,23,42,0.9);
-    border-radius: 18px;
-    padding: 0.8rem 0.9rem;       /* less padding so it feels tighter */
-    border: 1px solid rgba(148,163,184,0.5);
-    box-shadow: 0 14px 35px rgba(15,23,42,0.9);
-    margin: 0.6rem auto;          /* center */
-    max-width: 520px;             /* 🔥 narrower card */
-}
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+}             /* 🔥 narrower card */
+
 
 /* Home page inline sections */
 .section-home {
@@ -800,6 +801,7 @@ elif current_page_name == "Contact":
         """
     )
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
